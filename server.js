@@ -6,6 +6,9 @@ const sequelize = require('./db');
 const Ticket = require('./models/tickets');
 const User =  require('./models/user')
 
+const PORT = process.env.PORT || 3001;
+
+
 const cors = require('cors');
 app.use(cors());  // 🔥 allow frontend to access backend
 
@@ -30,11 +33,11 @@ app.post('/userdetails', async (req, res)=>{
 
 
 
-app.listen(3001, async () => {
-  debugger;
+app.listen(PORT, async () => {
+
   try {
     await sequelize.sync(); // ensures DB tables are created
-    console.log('Server running on http://localhost:3001');
+    console.log(`Server running on http://localhost:${PORT}`);
   } catch (err) {
     console.error('DB error:', err);
   }
