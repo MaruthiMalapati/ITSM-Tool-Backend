@@ -59,14 +59,13 @@ const Ticket = require('./models/tickets');
 const User = require('./models/user');
 
 const PORT = process.env.PORT || 3001;
-
 const cors = require('cors');
-
+console.log(PORT, " this is port no")
 // ✅ Allow requests only from your frontend domain
 app.use(cors({
   origin: 'https://itsm-tool-frontend.vercel.app'
 }));
-
+// app.use(cors());
 app.use(express.json());
 
 app.post('/tickets', async (req, res) => {
@@ -87,11 +86,13 @@ app.post('/userdetails', async (req, res) => {
 app.listen(PORT, async () => {
   try {
     await sequelize.sync(); // ensures DB tables are created
-    console.log(`Server running on http://localhost:${PORT}`);
+    // console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`✅ Server running on port ${PORT}`);
   } catch (err) {
     console.error('DB error:', err);
   }
 });
+
 
 
 
