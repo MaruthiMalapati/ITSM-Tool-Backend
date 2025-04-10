@@ -78,10 +78,32 @@ app.get('/tickets', async (req, res) => {
   res.json(tickets);
 });
 
-app.post('/userdetails', async (req, res) => {
-  const users = await User.create(req.body);
-  res.json(users);
+// app.post('/userdetails', async (req, res) => {
+//   const users = await User.create(req.body);
+//   res.json(users);
+// });
+app.get('/ping', (req, res) => {
+  res.send('pong');
 });
+
+
+app.post('/userdetails', async (req, res) => {
+  try {
+    const users = await User.create(req.body);
+    res.status(201).json(users);
+  } catch (error) {
+    console.error("POST /userdetails error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+
+
+
+
+
+
+
 
 app.listen(PORT, async () => {
   try {
