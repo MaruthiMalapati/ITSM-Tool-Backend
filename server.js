@@ -69,8 +69,13 @@ app.use(cors({
 app.use(express.json());
 
 app.post('/tickets', async (req, res) => {
-  const ticket = await Ticket.create(req.body);
-  res.json(ticket);
+  try{
+    const ticket = await Ticket.create(req.body);
+    res.json(ticket);
+  }catch (error) {
+    console.error("POST /userdetails error:", error);
+    res.status(500).json({ error: "Internal server error" });}
+ 
 });
 
 app.get('/tickets', async (req, res) => {
