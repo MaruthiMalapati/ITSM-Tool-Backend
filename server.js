@@ -60,7 +60,12 @@ const User = require('./models/user');
 
 const PORT = process.env.PORT || 3001;
 const cors = require('cors');
-console.log(PORT, " this is port no")
+
+sequelize.authenticate()
+  .then(() => console.log("✅ Connected to Supabase DB"))
+  .catch((err) => console.error("❌ DB connection failed:", err));
+
+
 // ✅ Allow requests only from your frontend domain
 app.use(cors({
   origin: 'https://itsm-tool-frontend.vercel.app'
