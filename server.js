@@ -92,17 +92,29 @@ app.get('/ping', (req, res) => {
 });
 
 
+// app.post('/userdetails', async (req, res) => {
+//   try {
+//     const users = await User.create(req.body);
+//     res.status(201).json(users);
+//   } catch (error) {
+//     console.error("POST /userdetails error:", error);
+//     res.status(500).json({ error: "Internal server error" });
+//   }
+// });
+
+
+
+
 app.post('/userdetails', async (req, res) => {
   try {
+    console.log("Request body:", req.body); // Log incoming data
     const users = await User.create(req.body);
     res.status(201).json(users);
   } catch (error) {
-    console.error("POST /userdetails error:", error);
-    res.status(500).json({ error: "Internal server error" });
+    console.error("POST /userdetails error:", error.message, error.stack);
+    res.status(500).json({ error: error.message }); // Temporary for debugging
   }
 });
-
-
 
 
 
