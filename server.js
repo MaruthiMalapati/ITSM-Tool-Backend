@@ -53,25 +53,39 @@
 
 const express = require('express');
 const app = express();
-
+const cors = require('cors');
 const sequelize = require('./db');
 const Ticket = require('./models/tickets');
 const User = require('./models/user');
 
 const PORT = process.env.PORT || 3001;
-const cors = require('cors');
+
+
+app.use(
+  cors({
+    origin: "https://itsm-tool-frontend.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
+app.use(express.json());
+
+
+
+
+
+
+
+
 
 sequelize.authenticate()
   .then(() => console.log("✅ Connected to Supabase DB"))
   .catch((err) => console.error("❌ DB connection failed:", err));
 
 
-// ✅ Allow requests only from your frontend domain
-app.use(cors({
-  origin: 'https://itsm-tool-frontend.vercel.app'
-}));
-// app.use(cors());
-app.use(express.json());
+
+
 
 app.post('/tickets', async (req, res) => {
   try{
