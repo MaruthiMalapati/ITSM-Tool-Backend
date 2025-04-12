@@ -35,9 +35,6 @@
 // });
 
 
-
-
-
 // app.listen(PORT, async () => {
 
 //   try {
@@ -53,39 +50,20 @@
 
 const express = require('express');
 const app = express();
-const cors = require('cors');
+
 const sequelize = require('./db');
 const Ticket = require('./models/tickets');
 const User = require('./models/user');
 
 const PORT = process.env.PORT || 3001;
+const cors = require('cors');
 
-
-app.use(
-  cors({
-    origin: "https://itsm-tool-frontend.vercel.app",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
-
+// ✅ Allow requests only from your frontend domain
+app.use(cors({
+  origin: 'https://itsm-tool-frontend.vercel.app'
+}));
+// app.use(cors());
 app.use(express.json());
-
-
-
-
-
-
-
-
-
-sequelize.authenticate()
-  .then(() => console.log("✅ Connected to Supabase DB"))
-  .catch((err) => console.error("❌ DB connection failed:", err));
-
-
-
-
 
 app.post('/tickets', async (req, res) => {
   try{
@@ -111,18 +89,9 @@ app.get('/ping', (req, res) => {
 });
 
 
-// app.post('/userdetails', async (req, res) => {
-//   try {
-//     const users = await User.create(req.body);
-//     res.status(201).json(users);
-//   } catch (error) {
-//     console.error("POST /userdetails error:", error);
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// });
 
 
-
+app.use(express.json());
 
 app.post('/userdetails', async (req, res) => {
   try {
